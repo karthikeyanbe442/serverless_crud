@@ -10,15 +10,20 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Navbar from 'react-bootstrap/Navbar';
 
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import { Auth } from 'aws-amplify';
+
 class App extends React.Component {
 
   constructor(props){
     super(props)
     this.state = {languages:[], alphabets:[]}
     this.alphabetsConfig = {};
-  }
+    this.user = null
+  } 
 
   async componentDidMount(){
+    this.user = await Auth.currentAuthenticatedUser();
     if(this.alphabetsConfig){
       const response = await fetch("alphabet-config.json");
       const jsonResponse = await response.json();
@@ -39,12 +44,20 @@ class App extends React.Component {
   <Navbar.Brand href="#home">#</Navbar.Brand>
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav">
-    <Nav className="mr-auto">
+  <Nav className="mr-auto">
+    <NavDropdown title="alphabets" id="basic-nav-dropdown">
         {this.state.languages.map((value, index) => {
-          return <Nav.Link href="#" className="noSelect" key={value} onClick={()=>{this.setLanguage(value)}}>{value}</Nav.Link>
+          return <NavDropdown.Item href="#" className="noSelect" key={value} onClick={()=>{this.setLanguage(value)}}>{value}</NavDropdown.Item>
         })}
+    </NavDropdown>
     </Nav>
-    Welcome Guest!
+    <Nav>
+    <NavDropdown title={this.user != null ? this.user.username : ""} id="basic-nav-dropdown">
+      <NavDropdown.Item>Profile (Not Ready)</NavDropdown.Item>
+      <NavDropdown.Divider />
+      <NavDropdown.Item><AmplifySignOut button-text="Sign out"></AmplifySignOut></NavDropdown.Item>
+    </NavDropdown>  
+  </Nav>
   </Navbar.Collapse>
 </Navbar>
 
@@ -62,4 +75,4 @@ class App extends React.Component {
   } 
 }
 
-export default App;
+export default withAuthenticator(App)
