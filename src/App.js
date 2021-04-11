@@ -1,14 +1,13 @@
 import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import './App.css';
-import Card from './Card';
-import Slideshow from './Slideshow';
-
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Navbar from 'react-bootstrap/Navbar';
+import Dashboard from './dashboard/Dashboard';
+import Home from './home/Home';
 
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 import { Auth } from 'aws-amplify';
@@ -39,38 +38,16 @@ class App extends React.Component {
   
   render() {
     return (
-      <>
-  <Navbar bg="light" expand="lg">
-  <Navbar.Brand href="#home">#</Navbar.Brand>
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav">
-  <Nav className="mr-auto">
-    <NavDropdown title="alphabets" id="basic-nav-dropdown">
-        {this.state.languages.map((value, index) => {
-          return <NavDropdown.Item href="#" className="noSelect" key={value} onClick={()=>{this.setLanguage(value)}}>{value}</NavDropdown.Item>
-        })}
-    </NavDropdown>
-    </Nav>
-    <Nav>
-    <NavDropdown title={this.user != null ? this.user.username : ""} id="basic-nav-dropdown">
-      <NavDropdown.Item>Profile (Not Ready)</NavDropdown.Item>
-      <NavDropdown.Divider />
-      <NavDropdown.Item><AmplifySignOut button-text="Sign out"></AmplifySignOut></NavDropdown.Item>
-    </NavDropdown>  
-  </Nav>
-  </Navbar.Collapse>
-</Navbar>
-
-      <div>
-        {/* <p>Language: {this.state.language}</p> */}
-        {/* {this.state.alphabets.map(char=>(
-          <Card key={char} content={char}/>
-        ))} */}
-        {/* <br /> */}
-        {/* SlideShow: */}
-        <Slideshow list={this.state.alphabets}/>
-      </div>
-      </>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/dashboard">
+            <Dashboard></Dashboard>
+          </Route>
+        </Switch>
+    </Router>
     );
   } 
 }
