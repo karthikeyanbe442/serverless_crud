@@ -14,6 +14,51 @@
         "categories": {
             "auth": {
                 "personalsite9bc9f376": {}
+            },
+            "function": {
+                "expenseLambda": {}
+            }
+        }
+    },
+    "stage": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-personalsite-stage-230457-authRole",
+            "UnauthRoleArn": "arn:aws:iam::093719594915:role/amplify-personalsite-stage-230457-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::093719594915:role/amplify-personalsite-stage-230457-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-personalsite-stage-230457-deployment",
+            "UnauthRoleName": "amplify-personalsite-stage-230457-unauthRole",
+            "StackName": "amplify-personalsite-stage-230457",
+            "StackId": "arn:aws:cloudformation:us-east-2:093719594915:stack/amplify-personalsite-stage-230457/5c7d7340-9d97-11eb-ab89-02656012557c",
+            "AmplifyAppId": "d2lxyj0ia2gn72"
+        },
+        "categories": {
+            "auth": {
+                "personalsite9bc9f376": {}
+            },
+            "function": {
+                "expenseLambda": {}
+            }
+        }
+    },
+    "prod": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-personalsite-prod-235059-authRole",
+            "UnauthRoleArn": "arn:aws:iam::093719594915:role/amplify-personalsite-prod-235059-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::093719594915:role/amplify-personalsite-prod-235059-authRole",
+            "Region": "us-east-2",
+            "DeploymentBucketName": "amplify-personalsite-prod-235059-deployment",
+            "UnauthRoleName": "amplify-personalsite-prod-235059-unauthRole",
+            "StackName": "amplify-personalsite-prod-235059",
+            "StackId": "arn:aws:cloudformation:us-east-2:093719594915:stack/amplify-personalsite-prod-235059/cbbf4bb0-9d9d-11eb-a537-0682845ca648",
+            "AmplifyAppId": "d2lxyj0ia2gn72"
+        },
+        "categories": {
+            "auth": {
+                "personalsite9bc9f376": {}
+            },
+            "function": {
+                "expenseLambda": {}
             }
         }
     }

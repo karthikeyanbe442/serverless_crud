@@ -10,12 +10,12 @@ import AppBar from '@material-ui/core/AppBar';
 import { Link as RouterLink } from 'react-router-dom';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Auth } from 'aws-amplify';
 import { useHistory } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = theme => ({
     root: {
         flexGrow: 1,
     },
@@ -42,18 +42,16 @@ const useStyles = makeStyles((theme) => ({
     rightIcon: {
       marginRight: theme.spacing(1),
     },
-}));
+});
 
-export default function Home() {
-    const classes = useStyles();
-    
-    const history = useHistory();
-
-    const signOut = () => {
+class Home extends React.Component {
+    signOut = function() {
         Auth.signOut()
-            .then(data => history.push("/signout"))
+            .then(data => window.location.href="/")
             .catch(err => console.log(err));
     }
+    render() {        
+        const { classes } = this.props;
 
     return (
         <>
@@ -61,7 +59,7 @@ export default function Home() {
                 <Toolbar className={classes.root} >
                     <HomeIcon className={classes.icon}/>
                     <Typography className={classes.root}>App</Typography>
-                    <Button color="inherit" onClick={signOut}> <ExitToAppIcon className={classes.rightIcon}/> Signout</Button>
+                    <Button color="inherit" onClick={this.signOut}> <ExitToAppIcon className={classes.rightIcon}/> Signout</Button>
                 </Toolbar>       
             </AppBar>
 
@@ -95,4 +93,7 @@ export default function Home() {
             </Grid>
         </>
     )
+    }
 }
+
+export default withStyles(useStyles)(Home)
