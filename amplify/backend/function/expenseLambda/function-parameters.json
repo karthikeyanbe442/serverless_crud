@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "storage": {
+      "expenseDb": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": []
+}

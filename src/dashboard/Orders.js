@@ -7,19 +7,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
-
-// Generate Order Data
-function createData(id, date, item, category, paymentMethod, amount) {
-  return { id, date, item, category, paymentMethod, amount };
-}
-
-const rows = [
-  createData(0, '16 Mar, 2021', 'Taaza Mart', 'Groceries', 'VISA ⠀•••• 8447', 12.45),
-  createData(1, '16 Mar, 2021', 'Costco', 'Groceries', 'VISA ⠀•••• 8447', 159.01),
-  createData(2, '16 Mar, 2021', 'Publix', 'Groceries', 'VISA ⠀•••• 8447', 14.90),
-  createData(3, '01 Mar, 2021', 'The Parq', 'Rent', 'VISA ⠀•••• 8447', 1110.01),
-  createData(4, '01 Mar, 2021', 'Teco Energy', 'Electricity', 'MasterCard ⠀•••• 9555', 69.04),
-];
+import { API } from 'aws-amplify';
+import { CircularProgress } from '@material-ui/core';
 
 function preventDefault(event) {
   event.preventDefault();
@@ -31,38 +20,75 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Orders() {
-  const classes = useStyles();
-  return (
-    <React.Fragment>
-      <Title>Recent Expenses</Title>
-      <Table size="small">
-        <TableHead>
-          <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Item</TableCell>
-            <TableCell>Category</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.id}>
-              <TableCell>{row.date}</TableCell>
-              <TableCell>{row.item}</TableCell>
-              <TableCell>{row.category}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
-              <TableCell align="right">{row.amount}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div className={classes.seeMore}>
-        <Link color="primary" href="#" onClick={preventDefault}>
-          See more expenses
-        </Link>
-      </div>
-    </React.Fragment>
-  );
+class Orders extends React.Component {
+
+  constructor() {
+    super()
+    this.state = {
+      expenses: [],
+      isLoading: true,
+      success: false,
+      error: false
+    }
+  }
+
+  apiName = 'expenseApi';
+  path = '/expense';
+  myInit = {};
+  componentDidMount() {
+    this.refreshExpenses()
+  }
+
+  refreshExpenses() {
+    this.setState({ isLoading: true });
+    API.get(this.apiName, this.path, this.myInit)
+      .then(response => {
+        this.setState({ isLoading: false, expenses: JSON.parse(response.body) });
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+  }
+
+  render() {
+    return (
+      <>
+        {this.state.isLoading ? <CircularProgress /> :
+          <React.Fragment>
+            <Title>Recent Expenses</Title>
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Item</TableCell>
+                  <TableCell>Category</TableCell>
+                  <TableCell>Payment Method</TableCell>
+                  <TableCell align="right">Sale Amount</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {this.state.expenses.map((row) => (
+                  <TableRow key={row.id}>
+                    <TableCell>{row.date}</TableCell>
+                    <TableCell>{row.item}</TableCell>
+                    <TableCell>{row.category}</TableCell>
+                    <TableCell>{row.pi}</TableCell>
+                    <TableCell align="right">{row.cost}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+
+            </Table>
+            <div>
+              <Link color="primary" href="#" onClick={preventDefault}>
+                See more expenses
+            </Link>
+            </div>
+          </React.Fragment>
+        }
+      </>
+    );
+  }
 }
+
+export default Orders;

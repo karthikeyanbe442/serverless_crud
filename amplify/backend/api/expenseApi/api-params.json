@@ -1,0 +1,41 @@
+{
+    "paths": [
+        {
+            "name": "/expense",
+            "lambdaFunction": "expenseLambda",
+            "privacy": {
+                "private": true,
+                "auth": [
+                    "/POST",
+                    "/GET",
+                    "/PUT",
+                    "/PATCH",
+                    "/DELETE"
+                ]
+            }
+        }
+    ],
+    "resourceName": "expenseApi",
+    "apiName": "expenseApi",
+    "functionArns": [
+        {
+            "lambdaFunction": "expenseLambda"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "amplify-personalsite-dev-232911-authRole",
+        "unAuthRoleName": "amplify-personalsite-dev-232911-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "expenseLambda",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

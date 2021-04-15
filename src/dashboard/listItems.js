@@ -12,85 +12,94 @@ import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AirplanemodeActiveIcon from '@material-ui/icons/AirplanemodeActive';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import { Tooltip } from '@material-ui/core';
 
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <Tooltip title="Dashboard">
+    <ListItem button component="a" href="/dashboard">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard" />
     </ListItem>
-    <ListItem button>
+    </Tooltip>
+    <Tooltip title="Expenses">
+    <ListItem button component="a" href="/dashboard/expense">
       <ListItemIcon>
         <ShoppingCartIcon />
       </ListItemIcon>
       <ListItemText primary="Expenses" />
     </ListItem>
+    </Tooltip>
+    <Tooltip title="Credit Cards">
     <ListItem button>
       <ListItemIcon>
         <CreditCardIcon />
       </ListItemIcon>
       <ListItemText primary="Credit Cards" />
-    </ListItem>    
+    </ListItem>
+    </Tooltip>
+    <Tooltip title="Debit Cards/Cash">
     <ListItem button>
       <ListItemIcon>
         <LocalAtmIcon />
       </ListItemIcon>
       <ListItemText primary="Debit Cards/Cash" />
     </ListItem>
+    </Tooltip>
+    <Tooltip title="Loans">
     <ListItem button>
       <ListItemIcon>
         <AccountBalanceIcon />
       </ListItemIcon>
       <ListItemText primary="Loans" />
-    </ListItem>    
+    </ListItem>
+    </Tooltip>
+    <Tooltip title="Indian Expense">
     <ListItem button>
       <ListItemIcon>
         <AirplanemodeActiveIcon />
       </ListItemIcon>
       <ListItemText primary="Indian Expense" />
     </ListItem>
+    </Tooltip>
+    <Tooltip title="Reports">
     <ListItem button>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
       <ListItemText primary="Reports" />
     </ListItem>
+    </Tooltip>
   </div>
 );
 
 export const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <Tooltip title="Current month report">
+        <ListItem button>
+        <ListItemIcon>
+            <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Current month report" />
+        </ListItem>
+    </Tooltip>
+    <Tooltip title="Current quarter report">
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Current month" />
+      <ListItemText primary="Last quarter report" />
     </ListItem>
+    </Tooltip>
+    <Tooltip title="Current year report">
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />
       </ListItemIcon>
-      <ListItemText primary="Last quarter" />
+      <ListItemText primary="Last year report" />
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <AssignmentIcon />
-      </ListItemIcon>
-      <ListItemText primary="Last year" />
-    </ListItem>
+    </Tooltip>
   </div>
 );
-
-export const otherListItems = (
-    <div>
-      <ListItem button component="a" href="/">
-        <ListItemIcon>
-          <ExitToAppIcon />
-        </ListItemIcon>
-        <ListItemText primary="Exit Dashboard" />
-      </ListItem>
-    </div>
-  );

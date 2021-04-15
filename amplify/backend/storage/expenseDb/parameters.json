@@ -1,0 +1,5 @@
+{
+    "tableName": "expenseTable",
+    "partitionKeyName": "id",
+    "partitionKeyType": "S"
+}
